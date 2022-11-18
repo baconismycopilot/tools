@@ -23,15 +23,16 @@ def dump_to_file(
     """
 
     file_types = ["json", "yaml"]
-    file_type = "json" if file_type is None else file_type
-    output_dir = Path() if output_dir is None else Path(output_dir)
+    file_type = file_type if file_type else "json"
+
+    output_dir = Path(output_dir) if output_dir else Path()
 
     if file_type.lower() not in file_types:
         raise ValueError(
             f"File type must not in: {file_types} or None to default to json."
         )
 
-    file_name = f"results.{file_type}" if file_name is None else f"{file_name}.{file_type}"
+    file_name = f"{file_name}.{file_type}" if file_name else f"results.{file_type}"
 
     output_dir.mkdir(parents=True, exist_ok=True)
     file_path = output_dir / file_name
